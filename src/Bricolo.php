@@ -1,0 +1,66 @@
+<?php
+
+namespace Abollinger\Bricolo;
+
+use \Abollinger\Helpers;
+
+/**
+ * Class Bricolo
+ *
+ * Represents the main Bricolo class extending Abstract\Bootstrap and using Trait\Serve.
+ *
+ * @package Abollinger\Bricolo
+ */
+final class Bricolo extends Abstract\Bootstrap
+{
+    use Trait\Serve;
+
+    /**
+     * Display help information.
+     */
+    public static function Help() {
+        self::Log(["m" => "help"]);
+    }
+
+    /**
+     * Log a message based on parameters.
+     *
+     * @param array $params Parameters for logging.
+     *
+     * @throws \Exception When there is no log with the specified name.
+     */
+    public static function Log($params = []) {
+        $params = Helpers::defaultParams([
+            "m" => "welcome",
+        ], $params);
+
+        $className = "\\Abollinger\\Bricolo\\Data\\Messages";
+        $method = strtoupper($params["m"]);
+
+        $messageName = "\\Abollinger\\Bricolo\\Data\\Messages::" . strtoupper($params["m"]);
+        
+        // Check if the constant exists in the Messages class
+        if (defined($className . "::" . $method)) {
+            echo constant($messageName);
+        } 
+        // Check if the method exists in the Messages class
+        elseif (method_exists($className, $method)) {
+            echo call_user_func([$className, $method]);
+        } 
+        // If $method is a string, echo it directly
+        elseif (is_string($method)) {
+            echo $method;
+        } 
+        // Throw an exception if there is no log with the specified name
+        else {
+            throw new \Exception("There is no log with the name `" . $params["m"] . "`.");
+        }
+    }
+
+    /**
+     * Update the Bricolo package using composer.
+     */
+    public static function Update() {
+        shell_exec("composer update abollinger/bricolo");
+    }
+}

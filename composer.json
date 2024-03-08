@@ -1,0 +1,21 @@
+{
+    "name": "abollinger/bricolo",
+    "description": "A set of functionalities to manage the building of a partez app",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Abollinger\\Bricolo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Antoine Bollinger",
+            "email": "antoine.bollinger@gmail.com"
+        }
+    ],
+    "bin": "bricolo",
+    "require": {
+        "abollinger/helpers": "^1.2"
+    }
+}

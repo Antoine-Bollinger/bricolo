@@ -1,0 +1,31 @@
+#!/usr/bin/env php
+<?php
+$vendorAutoloadPath = (file_exists(__DIR__ . "/vendor/autoload.php")) 
+    ? __DIR__ . "/vendor/autoload.php" 
+    : __DIR__ . "/../../../vendor/autoload.php";
+
+require_once $vendorAutoloadPath;
+require_once __DIR__ . "/Global.php";
+
+use \Abollinger\Bricolo\Data\Messages;
+
+try {
+    array_shift($argv);
+    $classInstance = new ReflectionClass("\\Abollinger\\Bricolo\\Bricolo");
+    $requiredMethod = (count($argv) < 1) ? 'log' : array_shift($argv);
+    if ($classInstance->hasMethod($requiredMethod)) {
+        $params = [];
+        parse_str(implode('&', $argv), $params);
+        $method = $classInstance->getMethod($requiredMethod);
+        if ($method->isStatic()) {
+            $method->invokeArgs(null, [$params]);
+        } else {
+            $classInstance = $classInstance->newInstance();
+            $method->invokeArgs($classInstance, [$params]);
+        }
+    } else {
+        throw new \Exception(sprintf("Command `%s` not found. Type `help` to see available commands.", $requiredMethod));
+    }
+} catch (Exception $e) {
+    echo sprintf(Messages::ERROR(), $e->getMessage());
+}
