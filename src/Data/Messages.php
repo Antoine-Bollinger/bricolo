@@ -21,7 +21,6 @@ final class Messages
     ): string {
         return implode("\n", [
             sprintc("🎉 Congrats! You've just created a new Partez project!", "green"),
-            sprintc("💡 Don't forget to create a .env file at the root of your project. Please check the .env-example to see what it can contain."),
             sprintc("Now just run `composer serve` and see the magic happen! 🚀", "green")
         ]);
     }
