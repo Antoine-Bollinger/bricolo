@@ -32,10 +32,12 @@ final class Bricolo extends Abstract\Bootstrap
     public static function Log($params = []) {
         $params = Helpers::defaultParams([
             "m" => "welcome",
+            "t" => ""
         ], $params);
 
         $className = "\\Abollinger\\Bricolo\\Data\\Messages";
         $method = strtoupper($params["m"]);
+        $text = $params["t"];
 
         $messageName = "\\Abollinger\\Bricolo\\Data\\Messages::" . strtoupper($params["m"]);
         
@@ -45,7 +47,7 @@ final class Bricolo extends Abstract\Bootstrap
         } 
         // Check if the method exists in the Messages class
         elseif (method_exists($className, $method)) {
-            echo call_user_func([$className, $method]);
+            echo call_user_func([$className, $method], $text);
         } 
         // If $method is a string, echo it directly
         elseif (is_string($method)) {

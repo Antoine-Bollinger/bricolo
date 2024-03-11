@@ -64,11 +64,12 @@ final class Messages
      * @return string Formatted welcome message.
      */
     public static function WELCOME(
-        
+        $text = ""
     ): string {
         return implode("\n", [
             sprintc("Welcome to Bricolo's world!", "green"),
-            sprintc("Type `help` to open your eyes to all our possibilities!", "yellow")
+            sprintc("Type `help` to open your eyes to all our possibilities!", "yellow"),
+            sprintc($text, "white")
         ]);
     }
 }
