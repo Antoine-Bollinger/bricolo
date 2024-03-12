@@ -59,7 +59,9 @@ final class Messages
     public static function HELP(
 
     ): string {
-        return "\e[32mBricolo\e[39m version \e[33m1.0.0\e[39m " .  gmdate("d-m-Y H:i:s") . "
+        $composer = file_get_contents(dirname(__DIR__, 2) . "/composer.json");
+        $composerJson = json_decode($composer, true);
+        return "\e[32mBricolo\e[39m version \e[33m" . ($composerJson["version"] ?? "1.0.0") . "\e[39m " .  gmdate("d-m-Y H:i:s") . "
 
 \e[33mUsage:\e[39m
     command [arguments]
