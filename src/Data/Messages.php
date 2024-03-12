@@ -25,6 +25,21 @@ final class Messages
         ]);
     }
 
+    public static function ENV(
+
+    ) {
+        try {
+            $path = dirname(__DIR__, 5);
+            $dotenv = \Dotenv\Dotenv::createImmutable($path);
+            $dotenv->load();
+            $env = $_ENV;
+        } catch(\Exception $e) {
+            $env = ["error" => $e->getMessage()];
+        }
+        return var_dump($env);
+    }
+
+
     /**
      * Message for displaying an error.
      *
