@@ -37,14 +37,14 @@ trait Migrate
             } else {
                 echo "\n✅ \e[32mDatabase already exists.\n📌 Next step is to run 'composer serve' and see the magic happen!\n\e[39m";
             }
-            echo "\n\e[32mDo you want to run 'composer serve' now? (yes/no) \e[39m[\e[33mno\e[39m]:";
-            $handle = fopen("php://stdin", "r");
-            $line = fgets($handle);
-            if (trim($line) === "yes") {
-                echo "\n\e[32mAlright, 🚀 running the server right now!\n\e[39m";
-                self::serve();
-            }
-            fclose($handle);
+            // echo "\n\e[32mDo you want to run 'composer serve' now? (yes/no) \e[39m[\e[33mno\e[39m]:";
+            // $handle = fopen("php://stdin", "r");
+            // $line = fgets($handle);
+            // if (trim($line) === "yes") {
+            //     echo "\n\e[32mAlright, 🚀 running the server right now!\n\e[39m";
+            //     self::serve(["d" => "public"]);
+            // }
+            // fclose($handle);
         } catch(\Exception $e) {
             echo "🚨 \e[33m" . $e->getMessage() . "\e[39m";
         }
