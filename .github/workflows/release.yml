@@ -22,6 +22,7 @@ jobs:
       run: composer install --no-scripts
 
     - name: Get version from composer.json
+      id: get_version
       run: echo "::set-output name=version::$(php -r 'echo json_decode(file_get_contents("composer.json"), true)["version"];')"
 
     - name: Create GitHub release
@@ -30,7 +31,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ steps.create_release.outputs.version }}
-        release_name: v${{ steps.create_release.outputs.version }}
+        tag_name: v${{ steps.get_version.outputs.version }}
+        release_name: v${{ steps.get_version.outputs.version }}
         draft: false
         prerelease: false
