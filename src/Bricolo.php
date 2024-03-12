@@ -1,5 +1,4 @@
 <?php
-
 namespace Abollinger\Bricolo;
 
 use \Abollinger\Helpers;

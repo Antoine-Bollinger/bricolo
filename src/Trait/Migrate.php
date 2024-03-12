@@ -1,5 +1,5 @@
 <?php 
-namespace Bricolo\Trait;
+namespace Abollinger\Bricolo\Trait;
 
 trait Migrate 
 {
