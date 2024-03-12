@@ -14,6 +14,7 @@ use \Abollinger\Helpers;
 final class Bricolo extends Abstract\Bootstrap
 {
     use Trait\Serve;
+    use Trait\Migrate;
 
     /**
      * Display help information.

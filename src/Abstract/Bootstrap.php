@@ -13,6 +13,53 @@ use \Abollinger\Helpers;
 abstract class Bootstrap
 {
     /**
+     * Check the existence of the specified database.
+     *
+     * @return bool Returns true if the database exists; otherwise, false.
+     */
+    protected function checkDatabase(
+
+    ) :bool {
+        $tmp = new \PDO("mysql:host=".$_ENV["DB_HOST"].";charset=utf8mb4",$_ENV["DB_USER"],$_ENV["DB_PWD"]);
+        $check = $tmp->prepare("
+            SELECT SCHEMA_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = ?
+        ");
+        $check->execute([$_ENV["DB_NAME"]]);
+        $result = $check->fetch(\PDO::FETCH_ASSOC);
+        $tmp = null;
+        return ($result !== false);
+    }
+    
+    /**
+     * Create the specified database and populate it with data.
+     *
+     * @return bool Returns true on successful database creation and population; otherwise, false.
+     */
+    protected function createDatabase(
+
+    ) :bool {
+        $tmp = new \PDO("mysql:host=".$_ENV["DB_HOST"].";charset=utf8mb4",$_ENV["DB_USER"],$_ENV["DB_PWD"]);
+        $create = $tmp->prepare("
+            CREATE DATABASE IF NOT EXISTS " . $_ENV["DB_NAME"] . "
+        ");
+        $create->execute();
+        $create->closeCursor();
+
+        $file = __DIR__ . "/dump_sql.txt";
+        $queries = file_get_contents($file);
+
+        $userId = $_ENV["FIRST_USER_ID"];
+        $password = password_hash($_ENV["FIRST_USER_PASSWORD"], PASSWORD_BCRYPT, ["cost" => $_ENV["SALT"]]);
+
+        $tmp = new \PDO("mysql:host=".$_ENV["DB_HOST"].";dbname=".$_ENV["DB_NAME"].";charset=utf8mb4",$_ENV["DB_USER"],$_ENV["DB_PWD"]);
+        $populate = $tmp->prepare($queries);
+        $populate->execute(["userId" => $userId, "password" => $password]);
+        $populate->closeCursor();
+        $tmp = null;
+        return true;
+    }
+
+    /**
      * Check if a port on a given host is in use.
      *
      * @param string $host The host to check.
