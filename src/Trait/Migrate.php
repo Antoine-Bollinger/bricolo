@@ -18,13 +18,11 @@ trait Migrate
                 throw new \Exception($e->getMessage());
             }
             $instance = new self();
-            echo "\n";
             $result = $instance->loading([
                 "phrase" => "🔍️ \e[32mChecking if database ".$_ENV["DB_HOST"]." exists",
                 "position" => 1,
                 "function" => "checkDatabase"
             ]);
-            echo "\n";
             if (!$result) {
                 $instance->loading([
                     "spinner" => ['-', '\\', '|', '/'],
