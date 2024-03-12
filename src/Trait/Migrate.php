@@ -11,7 +11,8 @@ trait Migrate
     ) :void {
         try {
             try {
-                $dotenv = \Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"]);
+                $path = dirname(__DIR__, 5);
+                $dotenv = \Dotenv\Dotenv::createImmutable($path);
                 $dotenv->load();
             } catch(\Exception $e) {
                 throw new \Exception($e->getMessage());
