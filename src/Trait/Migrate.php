@@ -11,10 +11,10 @@ trait Migrate
     ) :void {
         try {
             try {
-                $dotenv = \Dotenv\Dotenv::createImmutable("/../../../");
+                $dotenv = \Dotenv\Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"]);
                 $dotenv->load();
             } catch(\Exception $e) {
-                error_log("🚨 \e[33m" . $e->getMessage() . " Please create a .env at the root of the project. See .env-example.\e[39m");
+                throw new \Exception($e->getMessage());
             }
             $instance = new self();
             echo "\n";
