@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main # Change this to your main branch name
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4 # Change this to your desired PHP version
+
+    - name: Install Composer dependencies
+      run: composer install --no-scripts
+
+    - name: Get version from composer.json
+      run: echo "::set-output name=version::$(php -r 'echo json_decode(file_get_contents("composer.json"), true)["version"];')"
+
+    - name: Create GitHub release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ steps.get_version.outputs.version }}
+        release_name: ${{ steps.get_version.outputs.version }}
+        draft: false
+        prerelease: false
+
+    - name: Upload release assets
+      id: upload-release
