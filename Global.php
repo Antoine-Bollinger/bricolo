@@ -1,6 +1,6 @@
 <?php 
 /*
- * This file is part of the partez package.
+ * This file is part of the Abollinger\Bricolo package.
  *
  * (c) Antoine Bollinger <antoine.bollinger@gmail.com>
  *
