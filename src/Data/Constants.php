@@ -28,6 +28,16 @@ abstract class Constants
     const port = 1234;
 
     /**
+     * Text file to store the port
+     */
+    const portFile = __DIR__ . "/port.txt";
+
+    /**
+     * Text file with dump sql for base migration
+     */
+    const dumpSqlFile = __DIR__ . "/dump_sql.txt";
+
+    /**
      * Directory constant.
      */
     const directory = "";

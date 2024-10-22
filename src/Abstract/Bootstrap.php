@@ -11,6 +11,7 @@
 namespace Abollinger\Bricolo\Abstract;
 
 use \Abollinger\Helpers;
+use \Abollinger\Bricolo\Data\Constants;
 
 /**
  * Class Bootstrap
@@ -42,10 +43,12 @@ abstract class Bootstrap
     /**
      * Create the specified database and populate it with data.
      *
+     * @param string $file File containing the Sql command for database creation. Default is dump_sql.txt in Data folder
+     * 
      * @return bool Returns true on successful database creation and population; otherwise, false.
      */
     protected function createDatabase(
-
+        $file = Constants::dumpSqlFile
     ) :bool {
         $tmp = new \PDO("mysql:host=".$_ENV["D_HOST"].";charset=utf8mb4",$_ENV["D_USER"],$_ENV["D_PWD"]);
         $create = $tmp->prepare("
@@ -54,7 +57,6 @@ abstract class Bootstrap
         $create->execute();
         $create->closeCursor();
 
-        $file = __DIR__ . "/dump_sql.txt";
         $queries = file_get_contents($file);
 
         $userId = $_ENV["FIRST_USER_ID"];
@@ -88,6 +90,30 @@ abstract class Bootstrap
             fclose($connection);
 
         return $isUsed;
+    }
+
+    /**
+     * Store the port in a text file (/port.txt)
+     * 
+     * @param int $port The port number
+     */
+    protected function setPort(
+        $id,
+        $port = Constants::port,
+        $file = Constants::portFile
+    ) :void {
+        if (file_exists($file) && filesize($file) > 0) {
+            $jsonData = file_get_contents($file);
+            $data = json_decode($jsonData);
+            if ($data === null) {
+                $data = [];
+            }
+        } else {
+            $data = [];
+        }
+        $data[] = array("$id" => "$port");
+        $jsonData = json_encode($data, JSON_PRETTY_PRINT);
+        file_put_contents($file, $jsonData, LOCK_EX);
     }
 
     /**

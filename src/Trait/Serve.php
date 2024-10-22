@@ -67,6 +67,7 @@ trait Serve
                     "d" => self::$directory,
                 ]);
             } else {
+                // $instance->setPort(spl_object_id($instance), self::$port);
                 echo "✅ \e[32mPort " . self::$port . " is available.\e[39m";
                 echo "\n";
                 $instance->loading([
@@ -79,5 +80,13 @@ trait Serve
         } catch(\Exception $e) {
             echo "🚨 \e[33m" . $e->getMessage() . "\e[39m";
         }
+    }
+
+    public static function getPort(
+
+    ) {
+        $file = Constants::portFile;
+
+        echo file_exists($file) ? (int)file_get_contents($file) : 0;
     }
 }
