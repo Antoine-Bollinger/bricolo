@@ -26,16 +26,39 @@ final class Messages
      */
     public static function AFTERINSTALL(
 
-    ): string {
+    ) :string {
         return implode("\n", [
             sprintc("🎉 Congrats! You've just created a new Partez project!", "green"),
             sprintc("Now just run `composer serve` and see the magic happen! 🚀", "green")
         ]);
     }
 
+    /**
+     * Print PARTEZ stylised
+     *
+     * @return string Formatted message.
+     */
+    public static function PARTEZ(
+
+    ) :string {
+        return implode("\n", [
+            sprintc("                      __", "green"),
+            sprintc("    ____  ____  _____/ /_____  _____", "green"),
+            sprintc("   / __ \/ __ \/ ___/ ___/ _ \/__  /", "green"),
+            sprintc("  / /_/ / /_/ / /  / /  /  __/  __", "green"),
+            sprintc(" / .___/\__/|/_/  /_/   \___/____/", "green"),
+            sprintc("/_/", "green"),
+        ]);
+    }
+
+    /**
+     * Print the .env content.
+     *
+     * @return string Formatted message.
+     */
     public static function ENV(
 
-    ) {
+    ) :string {
         try {
             $path = dirname(__DIR__, 5);
             $dotenv = \Dotenv\Dotenv::createImmutable($path);
@@ -55,7 +78,7 @@ final class Messages
      */
     public static function ERROR(
 
-    ): string {
+    ) :string {
         return sprintc("🚨 Error: %s", "yellow");
     }
 
@@ -66,7 +89,7 @@ final class Messages
      */
     public static function HELP(
 
-    ): string {
+    ) :string {
         $composer = file_get_contents(dirname(__DIR__, 2) . "/composer.json");
         $composerJson = json_decode($composer, true);
         return "\e[32mBricolo\e[39m version \e[33m" . ($composerJson["version"] ?? "1.0.0") . "\e[39m " .  gmdate("d-m-Y H:i:s") . "
@@ -90,7 +113,7 @@ final class Messages
      */
     public static function WELCOME(
         $text = ""
-    ): string {
+    ) :string {
         return implode("\n", [
             sprintc("Welcome to Bricolo's world!", "green"),
             sprintc("Type `help` to open your eyes to all our possibilities!", "yellow"),

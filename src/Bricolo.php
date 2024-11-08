@@ -28,14 +28,18 @@ final class Bricolo extends Abstract\Bricolo
     /**
      * Display help information.
      */
-    public static function Help() {
+    public static function Help(
+
+    ) {
         self::Log(["m" => "help"]);
     }
 
     /**
      * Update the Bricolo package using composer.
      */
-    public static function Update() {
+    public static function Update(
+        
+    ) {
         shell_exec("composer update abollinger/bricolo");
     }
 }
