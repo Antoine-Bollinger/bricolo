@@ -15,57 +15,21 @@ use \Abollinger\Helpers;
 /**
  * Class Bricolo
  *
- * Represents the main Bricolo class extending Abstract\Bootstrap and using Trait\Serve.
+ * Represents the main Bricolo class extending Abstract\Bricolo and using the traits as main methods.
  *
  * @package Abollinger\Bricolo
  */
-final class Bricolo extends Abstract\Bootstrap
+final class Bricolo extends Abstract\Bricolo
 {
-    use Trait\Serve;
-    use Trait\Migrate;
+    use Trait\CliUserInterface;
+    use Trait\DbManager;
+    use Trait\HttpServer;
 
     /**
      * Display help information.
      */
     public static function Help() {
         self::Log(["m" => "help"]);
-    }
-
-    /**
-     * Log a message based on parameters.
-     *
-     * @param array $params Parameters for logging.
-     *
-     * @throws \Exception When there is no log with the specified name.
-     */
-    public static function Log($params = []) {
-        $params = Helpers::defaultParams([
-            "m" => "welcome",
-            "t" => ""
-        ], $params);
-
-        $className = "\\Abollinger\\Bricolo\\Data\\Messages";
-        $method = strtoupper($params["m"]);
-        $text = $params["t"];
-
-        $messageName = "\\Abollinger\\Bricolo\\Data\\Messages::" . strtoupper($params["m"]);
-        
-        // Check if the constant exists in the Messages class
-        if (defined($className . "::" . $method)) {
-            echo constant($messageName);
-        } 
-        // Check if the method exists in the Messages class
-        elseif (method_exists($className, $method)) {
-            echo call_user_func([$className, $method], $text);
-        } 
-        // If $method is a string, echo it directly
-        elseif (is_string($method)) {
-            echo $method;
-        } 
-        // Throw an exception if there is no log with the specified name
-        else {
-            throw new \Exception("There is no log with the name `" . $params["m"] . "`.");
-        }
     }
 
     /**

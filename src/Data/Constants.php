@@ -11,7 +11,9 @@
 namespace Abollinger\Bricolo\Data;
 
 /**
- * Constants class for managing various constants and color codes.
+ * Class Constants 
+ * 
+ * To manage various constants and color codes.
  *
  * @package Abollinger\Bricolo
  */

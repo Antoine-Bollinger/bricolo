@@ -20,14 +20,14 @@ use \Abollinger\Bricolo\Data\Constants;
  *
  * @package Abollinger\Bricolo
  */
-abstract class Bootstrap
+abstract class Bricolo
 {
     /**
      * Check the existence of the specified database.
      *
      * @return bool Returns true if the database exists; otherwise, false.
      */
-    protected function checkDatabase(
+    protected function _checkDatabase(
 
     ) :bool {
         $tmp = new \PDO("mysql:host=".$_ENV["D_HOST"].";charset=utf8mb4",$_ENV["D_USER"],$_ENV["D_PWD"]);
@@ -47,7 +47,7 @@ abstract class Bootstrap
      * 
      * @return bool Returns true on successful database creation and population; otherwise, false.
      */
-    protected function createDatabase(
+    protected function _createDatabase(
         $file = Constants::dumpSqlFile
     ) :bool {
         $tmp = new \PDO("mysql:host=".$_ENV["D_HOST"].";charset=utf8mb4",$_ENV["D_USER"],$_ENV["D_PWD"]);
@@ -78,7 +78,7 @@ abstract class Bootstrap
      *
      * @return bool Returns true if the port is in use; otherwise, false.
      */
-    protected function checkPort(
+    protected function _checkPort(
         $host = Constants::host,
         $port = Constants::port
     ) :bool {
@@ -93,37 +93,13 @@ abstract class Bootstrap
     }
 
     /**
-     * Store the port in a text file (/port.txt)
-     * 
-     * @param int $port The port number
-     */
-    protected function setPort(
-        $id,
-        $port = Constants::port,
-        $file = Constants::portFile
-    ) :void {
-        if (file_exists($file) && filesize($file) > 0) {
-            $jsonData = file_get_contents($file);
-            $data = json_decode($jsonData);
-            if ($data === null) {
-                $data = [];
-            }
-        } else {
-            $data = [];
-        }
-        $data[] = array("$id" => "$port");
-        $jsonData = json_encode($data, JSON_PRETTY_PRINT);
-        file_put_contents($file, $jsonData, LOCK_EX);
-    }
-
-    /**
      * Perform a loading animation or process.
      *
      * @param array $params An array of parameters for the loading animation.
      *
      * @return mixed Returns the result of the loading process, if any.
      */
-    protected function loading(
+    protected function _loading(
         $params = []
     ) {
         $params = Helpers::defaultParams([
@@ -152,5 +128,17 @@ abstract class Bootstrap
         echo "\r" . $params["phrase"] . str_repeat(" ", Helpers::largestElementInArray($params["spinner"])) . "\e[39m";
 
         return $return ?? false;
+    }
+
+    protected function _input(
+        $params = []
+    ) :string {
+        $params = Helpers::defaultParams([
+            "q" => "How are you today? ",
+        ], $params);
+
+        echo sprintc($params["q"] . "", "green"),
+        $response = trim(fgets(STDIN));
+        return $response ?? "";
     }
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php 
 /*
  * This file is part of the Abollinger\Bricolo package.
@@ -9,8 +10,8 @@
  */
 
 $vendorAutoloadPath = (file_exists(__DIR__ . "/vendor/autoload.php"))
-    ? __DIR__ . "/vendor/autoload.php"
-    : __DIR__ . "/../../../vendor/autoload.php";
+    ? __DIR__ . "/../vendor/autoload.php"
+    : __DIR__ . "/../../../../vendor/autoload.php";
 
 /**
  * Applies color to a string using the specified color code from the Constants class.

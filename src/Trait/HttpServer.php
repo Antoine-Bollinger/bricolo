@@ -14,13 +14,11 @@ use \Abollinger\Bricolo\Data\Constants;
 use \Abollinger\Helpers;
 
 /**
- * Trait Serve
- *
- * This trait is responsible for initializing a server and checking for an available port to serve content.
+ * Trait HttpServer
  *
  * @package Abollinger\Bricolo
  */
-trait Serve
+trait HttpServer
 {
     /** @var string|null The host name used by the server. */
     private static $host;
@@ -52,10 +50,10 @@ trait Serve
             self::$port ??= (int)$params["p"];
             self::$directory ??= (string)$params["d"];
             
-            $portIsUsed = $instance->checkPort(self::$host, self::$port);
+            $portIsUsed = $instance->_checkPort(self::$host, self::$port);
     
             if ($portIsUsed) {
-                $instance->loading([
+                $instance->_loading([
                     "spinner" => ['-', '\\', '|', '/'],
                     "phrase" => "🚨 \e[33mPort ". self::$port . " is in use. Let's try with " . self::$port + 1 . " ",
                 ]);
@@ -70,7 +68,7 @@ trait Serve
                 // $instance->setPort(spl_object_id($instance), self::$port);
                 echo "✅ \e[32mPort " . self::$port . " is available.\e[39m";
                 echo "\n";
-                $instance->loading([
+                $instance->_loading([
                     "phrase" => "\e[32mStarting the server\e[39m"
                 ]);
                 echo "\r";
@@ -80,13 +78,5 @@ trait Serve
         } catch(\Exception $e) {
             echo "🚨 \e[33m" . $e->getMessage() . "\e[39m";
         }
-    }
-
-    public static function getPort(
-
-    ) {
-        $file = Constants::portFile;
-
-        echo file_exists($file) ? (int)file_get_contents($file) : 0;
     }
 }
