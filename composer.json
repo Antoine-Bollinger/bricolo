@@ -21,5 +21,8 @@
     },
     "scripts": {
         "serve": "@php bricolo serve d=public"
+    },
+    "config": {
+        "process-timeout": 0
     }
 }

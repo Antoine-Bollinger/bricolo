@@ -14,8 +14,9 @@
     <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a>
         <ul>
+            <li><a href="#viewing-help-information">Viewing Help Information</a></li>
             <li><a href="#launching-a-local-server">Launching a Local Server</a></li>
-            <li><a href="#database-managment">Database Management</a></li>
+            <li><a href="#database-management">Database Management</a></li>
             <li><a href="#color-coded-cli-output">Color-Coded CLI Output</a></li>
         </ul>
     </li>
@@ -36,6 +37,16 @@ composer require abollinger/bricolo
 ## Usage
 
 Bricolo provides several command-line commands. The `serve` command is one of the main functionalities, enabling quick and flexible server setup directly from the CLI.
+
+### Viewing Help Information
+
+To see a list of available commands and get a quick overview of each, you can run:
+
+```bash
+php bricolo help
+```
+
+This will display descriptions for each Bricolo command, including `serve` and `migrate`, along with usage examples to help you get started quickly.
 
 ### Launching a Local Server
 
