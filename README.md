@@ -84,11 +84,11 @@ The server will start on the specified host and port, using `/path/to/your/proje
 
 ### Database Management
 
-The `migrate` command enables you to initialize and set up your database with tables and default data.
+The `migrate` command in Bricolo enables you to initialize and set up your database with tables and default data. This command automates the creation of essential tables and can insert sample data to get your database up and running quickly.
 
 #### Step 1: Configure Database Connection in `.env`
 
-To use the database functionality, create a `.env` file in the root directory with the following variables:
+To enable database functionality, set up a `.env` file in the root directory of the Partez framework with the following required database connection variables:
 
 ```plaintext
 D_HOST=127.0.0.1
@@ -97,9 +97,9 @@ D_USER=your_username
 D_PWD=your_password
 ```
 
-#### Step 2: Create an SQL Dump File
+#### Step 2: Customize the SQL Dump File (Optional)
 
-Bricolo will look for a default SQL dump file at `src/Data/dump_sql.txt` to create tables and insert data. An example SQL dump file might look like this:
+Bricolo uses a default SQL dump file located at `src/Data/dump_sql.txt` to create tables and insert data. By default, this file includes SQL commands to create a basic users table:
 
 ```sql
 -- src/Data/dump_sql.txt
@@ -113,23 +113,47 @@ INSERT INTO `users` (`userId`, `password`) VALUES
 (:userId, :password);
 ```
 
-Feel free to customize this file to set up your initial tables and data.
+**Providing a Custom SQL Dump File**
+
+If you’d like to use a different SQL dump file, specify its path in the `.env` file with the optional variable `APP_DUMP_SQL`. For example:
+
+```plaintext
+APP_DUMP_SQL=custom_dump.sql
+```
+
+When `APP_DUMP_SQL` is set and the specified file exists, Bricolo will use it instead of `src/Data/dump_sql.txt`. This feature gives you the flexibility to customize database setup while keeping a default structure available.
+
+**Note: Ensure that the path specified in `APP_DUMP_SQL` is relative to the root of the Partez framework or provide an absolute path.**
 
 #### Step 3: Run the Migration Command
 
-To create the database and set up tables from the SQL dump file, use the `migrate` command:
+To initialize the database and set up tables as defined in the SQL dump file, run the `migrate` command:
 
 ```bash
 php bricolo migrate
 ```
 
-**Migration Process**
+#### Migration Process
 
-1. **Check for Database Existence**: The `migrate` command will first check if the specified database exists. If it does not exist, it will create it.
+When you run the migrate command, Bricolo will follow these steps:
 
-2. **Run SQL Dump**: After confirming the database, Bricolo will execute the SQL commands in `src/Data/dump_sql.txt`, creating tables and inserting data as specified.
+1. **Verify Database Connection**: Bricolo will check if it can connect to the specified database server using the credentials from .env. If the database specified in DB_NAME does not already exist, it will be created.
 
-This automates the setup process, making it quick and efficient to prepare a fresh database environment for development.
+2. **Locate SQL Dump File**: Bricolo will first check for a custom SQL dump file path in APP_DUMP_SQL. If this variable is set and the file exists, it will be used for the migration. Otherwise, Bricolo will fall back to the default src/Data/dump_sql.txt.
+
+3. **Execute SQL Commands**: Bricolo will read the SQL commands from the selected dump file and execute them in sequence to set up tables and insert any predefined data.
+
+This automated setup process simplifies initializing a new database environment, making it efficient to prepare a clean, ready-to-use database for development.
+
+#### Example `.env` file
+
+```plaintext
+DB_HOST=127.0.0.1
+DB_NAME=my_database
+DB_USER=my_user
+DB_PASSWORD=my_password
+APP_DUMP_SQL=custom_migration.sql
+```
 
 ### Color-Coded CLI Output
 

@@ -40,6 +40,16 @@ abstract class Constants
     const dumpSqlFile = __DIR__ . "/dump_sql.txt";
 
     /**
+     * Text file with the controller content
+     */
+    const controllerFile = __DIR__ . "/controller.txt";
+
+    /**
+     * Text file with the Twig view content
+     */
+    const viewFile = __DIR__ . "/view.txt";
+
+    /**
      * Directory constant.
      */
     const directory = "";

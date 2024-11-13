@@ -10,6 +10,8 @@
 
 namespace Abollinger\Bricolo\Trait;
 
+use \Abollinger\Bricolo\Data\Messages;
+
 /**
  * Trait DbManager
  *
@@ -52,7 +54,7 @@ trait DbManager
                 echo "\n✅ \e[32mDatabase already exists.\n📌 Next step is to run 'composer serve' and see the magic happen!\n\e[39m";
             }
         } catch(\Exception $e) {
-            echo "🚨 \e[33m" . $e->getMessage() . "\e[39m";
+            echo sprintf(Messages::ERROR(),$e->getMessage());
         }
     }
 }

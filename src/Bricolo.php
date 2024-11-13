@@ -24,11 +24,12 @@ final class Bricolo extends Abstract\Bricolo
     use Trait\CliUserInterface;
     use Trait\DbManager;
     use Trait\HttpServer;
+    use Trait\PageGenerator;
 
     /**
      * Display help information.
      */
-    public static function Help(
+    public static function help(
 
     ) {
         self::Log(["m" => "help"]);
@@ -37,7 +38,7 @@ final class Bricolo extends Abstract\Bricolo
     /**
      * Update the Bricolo package using composer.
      */
-    public static function Update(
+    public static function update(
         
     ) {
         shell_exec("composer update abollinger/bricolo");

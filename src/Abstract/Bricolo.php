@@ -57,7 +57,7 @@ abstract class Bricolo
         $create->execute();
         $create->closeCursor();
 
-        $queries = file_get_contents($file);
+        $queries = file_get_contents($_ENV["APP_DUMP_SQL"] ?? $file);
 
         $userId = $_ENV["FIRST_USER_ID"];
         $password = password_hash($_ENV["FIRST_USER_PASSWORD"], PASSWORD_BCRYPT, ["cost" => $_ENV["SALT"]]);

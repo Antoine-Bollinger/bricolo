@@ -11,6 +11,7 @@
 namespace Abollinger\Bricolo\Trait;
 
 use \Abollinger\Bricolo\Data\Constants;
+use \Abollinger\Bricolo\Data\Messages;
 use \Abollinger\Helpers;
 
 /**
@@ -76,7 +77,7 @@ trait HttpServer
 
             shell_exec("php -S " . self::$host . ":" . self::$port . sprintf(self::$directory ? " -t %s/" : "", self::$directory));
         } catch(\Exception $e) {
-            echo "🚨 \e[33m" . $e->getMessage() . "\e[39m";
+            echo sprintf(Messages::ERROR(),$e->getMessage());
         }
     }
 }
