@@ -138,38 +138,4 @@ trait PageGenerator
 
         return $viewsPath;
     }
-
-    /**
-     * Retrieves the root path of the application.
-     *
-     * This method computes the root path of the application by determining the
-     * directory of the current script and adjusting the path to account for the
-     * project structure. It also checks if a 'vendor' directory exists. If '-v'
-     * is passed, it will output the root path.
-     *
-     * @param array $params Optional parameters, including '-v' for verbose output.
-     * 
-     * @return string The root path of the application.
-     */
-    public static function getRootPath(
-        $params = []
-    ) {
-        $params = Helpers::defaultParams([
-            "-v" => null,
-        ], $params);
-
-        $instance = new self();
-
-        $instance->_loadEnv(true);
-
-        $thisRootPath = dirname(dirname(__DIR__));
-
-        $vendorPath = dirname(dirname(dirname($thisRootPath))) . "/vendor";
-
-        $path = is_dir($vendorPath) ? dirname($vendorPath) : $thisRootPath;
-
-        if ($params["-v"] === "") echo $path;
-
-        return $path;
-    }
 }

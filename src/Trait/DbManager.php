@@ -10,7 +10,9 @@
 
 namespace Abollinger\Bricolo\Trait;
 
+use \Abollinger\Bricolo\Data\Constants;
 use \Abollinger\Bricolo\Data\Messages;
+use \Abollinger\Helpers;
 
 /**
  * Trait DbManager
@@ -32,6 +34,8 @@ trait DbManager
             
             $instance->_loadEnv();
 
+            self::getDumpSQLFile();
+
             $result = $instance->_loading([
                 "phrase" => "🔍️ \e[32mChecking if database ".$_ENV["D_HOST"]." exists",
                 "position" => 1,
@@ -52,5 +56,26 @@ trait DbManager
         } catch(\Exception $e) {
             echo sprintf(Messages::ERROR(), $e->getMessage());
         }
+    }
+
+    public static function getDumpSQLFile(
+        $params = []
+    ) {
+        $params = Helpers::defaultParams([
+            "-v" => null,
+        ], $params);
+
+        $instance = new self();
+
+        $instance->_loadEnv(true);
+
+        if (isset($_ENV["APP_DUMP_SQL"])) {
+            $dumpSQLFile = self::getRootPath() . $_ENV["APP_DUMP_SQL"];
+            $_ENV["APP_DUMP_SQL"] = $dumpSQLFile;
+        } else {
+            $dumpSQLFile = Constants::dumpSqlFile;
+        }
+
+        if ($params["-v"] === "") echo $dumpSQLFile;
     }
 }
