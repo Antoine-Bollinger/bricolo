@@ -17,6 +17,7 @@
             <li><a href="#viewing-help-information">Viewing Help Information</a></li>
             <li><a href="#launching-a-local-server">Launching a Local Server</a></li>
             <li><a href="#database-management">Database Management</a></li>
+            <li><a href="#page-creation">Page Creation</a></li>
             <li><a href="#color-coded-cli-output">Color-Coded CLI Output</a></li>
         </ul>
     </li>
@@ -34,9 +35,11 @@ Install the last version via [Composer](https://getcomposer.org/):
 composer require abollinger/bricolo
 ```
 
+
 ## Usage
 
 Bricolo provides several command-line commands. The `serve` command is one of the main functionalities, enabling quick and flexible server setup directly from the CLI.
+
 
 ### Viewing Help Information
 
@@ -47,6 +50,7 @@ php bricolo help
 ```
 
 This will display descriptions for each Bricolo command, including `serve` and `migrate`, along with usage examples to help you get started quickly.
+
 
 ### Launching a Local Server
 
@@ -81,6 +85,7 @@ php bricolo serve p=8080 h=127.0.0.1 d=/path/to/your/project
 - Directory: `/path/to/your/project`
 
 The server will start on the specified host and port, using `/path/to/your/project` as the document root.
+
 
 ### Database Management
 
@@ -155,6 +160,42 @@ DB_PASSWORD=my_password
 APP_DUMP_SQL=custom_migration.sql
 ```
 
+
+### Page Creation
+
+The `PageGenerator` trait in Bricolo provides a straightforward way to generate a new controller and view for a page. This functionality is accessed from the command line and can quickly create files based on your predefined templates.
+
+#### Using `createPage` from the Command Line
+
+The `createPage` command generates:
+
+1. A Controller file based on a controller template.
+2. A View file in `.twig` format, using a view template.
+
+**Command Syntax**
+
+To create a new page, use the following command:
+
+```bash
+php bricolo createPage name="PageName" route="/page-route"
+```
+
+**Parameters**
+
+- `name`: The name of the page to create. This is required and will be formatted automatically, with the first letter capitalized (e.g., `"TestPage"`).
+- `route`: The route for the page (e.g., `"/test-page"`). This route will be injected into the template wherever {{ route }} appears.
+
+**File Locations**
+
+- **Controllers**: By default, controllers are created in the directory defined by the `APP_CONTROLLERS` constant. If `APP_CONTROLLERS` is not defined, Bricolo will use the `/Controllers` directory within the package root.
+
+- **Views**: Views are created in the directory specified by the `APP_VIEWS` constant. If `APP_VIEWS` is not defined, Bricolo will use the `/Views` directory within the package root.
+
+**Error Handling**
+
+If either name or route is missing, createPage will display an error message. Any other errors will also be displayed for troubleshooting.
+
+
 ### Color-Coded CLI Output
 
 Bricolo includes a `sprintc` function to apply color formatting to CLI output, making it easier to differentiate messages by their type (e.g., errors in red, success messages in green).
@@ -166,16 +207,19 @@ echo sprintc("Migration completed successfully!", Constants::COLOR_GREEN);
 echo sprintc("Error: Database connection failed.", Constants::COLOR_RED);
 ```
 
+
 ## Example Command
 
 Below is an example sequence to set up and launch a development environment with Bricolo:
 
 ```bash
-php bricolo migrate   # Run database migration to set up tables
-php bricolo serve     # Start a local server on the default or available port
+php bricolo migrate                                  # Run database migration to set up tables
+php bricolo createPage name="Page" route="/page"     # Create a new Controller named PageController and a twig view name PageView.twig 
+php bricolo serve                                    # Start a local server on the default or available port
 ```
 
 If the migration succeeds, you’ll see a message confirming that the database and tables were created.
+
 
 ## Contributing
 
@@ -187,7 +231,6 @@ We welcome contributions! Here’s how to contribute:
 - **Push to Github**: `git push origin features/Myfeature`.
 - **Open a Pull Request**.
 
-<!-- CONTACT -->
 
 ## Contact
 

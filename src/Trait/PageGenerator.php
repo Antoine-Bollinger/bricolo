@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
  * This file is part of the Abollinger\Bricolo package.
  *
@@ -21,7 +21,6 @@ use \Abollinger\Helpers;
  */
 trait PageGenerator 
 {
-
     public static function createPage(
         $params = []
     ) {        
@@ -32,21 +31,22 @@ trait PageGenerator
             ], $params);
 
             if (!$params["name"]) {
-                throw new \Exception("Please give a name to the page you want to create.");
+                throw new \Exception("Please provide a name for the page.");
             }            
-            
             if (!$params["route"]) {
-                throw new \Exception("Please give a route to the page you want to create.");
+                throw new \Exception("Please provide a route for the page.");
             }
 
             $formattedName = ucfirst(strtolower($params["name"]));
     
             $contents = [
                 "Controller" => [
+                    "path" => defined('APP_CONTROLLERS') ? APP_CONTROLLERS : dirname(dirname(__DIR__)) . '/Controllers',
                     "extension" => "php",
                     "content" => file_get_contents(Constants::controllerFile)
                 ],
                 "View" => [
+                    "path" => defined('APP_VIEWS') ? APP_VIEWS : dirname(dirname(__DIR__)) . '/Views',
                     "extension" => "twig",
                     "content" => file_get_contents(Constants::viewFile)
                 ]
@@ -58,12 +58,14 @@ trait PageGenerator
                     [$params["route"], $formattedName],
                     $value["content"]
                 );
-                $mainPath = getenv("APP_CONTROLLERS") ?? dirname(dirname(__DIR__));
-                $fileName = $mainPath . "/" . $formattedName . $key . "." . $value["extension"];
+
+                $fileName = $value["path"] . "/" . $formattedName . $key . "." . $value["extension"];     
                 file_put_contents($fileName, $fileContent);
             }
+            
+            echo sprintf(Messages::SUCCESS(), "Page created successfully.");
         } catch(\Exception $e) {
-            echo sprintf(Messages::ERROR(),$e->getMessage());
+            echo sprintf(Messages::ERROR(), $e->getMessage());
         }
     } 
 }
