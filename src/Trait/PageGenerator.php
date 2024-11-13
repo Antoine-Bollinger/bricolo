@@ -41,12 +41,12 @@ trait PageGenerator
     
             $contents = [
                 "Controller" => [
-                    "path" => self::getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
+                    "path" => self::getControllersPath(),
                     "extension" => "php",
                     "content" => file_get_contents(Constants::controllerFile)
                 ],
                 "View" => [
-                    "path" => self::getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
+                    "path" => self::getViewsPath(),
                     "extension" => "twig",
                     "content" => file_get_contents(Constants::viewFile)
                 ]
@@ -68,6 +68,34 @@ trait PageGenerator
         } catch(\Exception $e) {
             echo sprintf(Messages::ERROR(), $e->getMessage());
         }
+    }
+
+    public static function getControllersPath(
+        $params = []
+    ) {
+        $params = Helpers::defaultParams([
+            "-v" => null,
+        ], $params);
+
+        $controllersPath = self::getRootPath() . (getenv('APP_CONTROLLERS') ?: "");
+
+        if ($params["-v"] === "") echo $controllersPath;
+
+        return $controllersPath;
+    }
+    
+    public static function getViewsPath(
+        $params = []
+    ) {
+        $params = Helpers::defaultParams([
+            "-v" => null,
+        ], $params);
+
+        $controllersPath = self::getRootPath() . (getenv('APP_VIEWS') ?: "");
+
+        if ($params["-v"] === "") echo $controllersPath;
+
+        return $controllersPath;
     }
 
     public static function getRootPath(
