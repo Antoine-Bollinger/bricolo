@@ -41,12 +41,12 @@ trait PageGenerator
     
             $contents = [
                 "Controller" => [
-                    "path" => self::_getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
+                    "path" => self::getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
                     "extension" => "php",
                     "content" => file_get_contents(Constants::controllerFile)
                 ],
                 "View" => [
-                    "path" => self::_getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
+                    "path" => self::getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
                     "extension" => "twig",
                     "content" => file_get_contents(Constants::viewFile)
                 ]
@@ -77,9 +77,11 @@ trait PageGenerator
             "-v" => null,
         ], $params);
 
-        $vendorPath = __DIR__ . "/../../../../../vendor";
+        $thisRootPath = dirname(dirname(__DIR__));
 
-        $path = is_dir($vendorPath) ? dirname($vendorPath) : dirname(dirname(__DIR__));
+        $vendorPath = dirname(dirname(dirname($thisRootPath))) . "/vendor";
+
+        $path = is_dir($vendorPath) ? dirname($vendorPath) : $thisRootPath;
 
         if ($params["-v"] === "") echo $path;
 
