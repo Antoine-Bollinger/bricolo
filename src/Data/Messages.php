@@ -71,15 +71,26 @@ final class Messages
     }
 
     /**
-     * Message for displaying an error.
+     * Message for displaying an succes.
      *
      * @return string Formatted error message.
      */
     public static function SUCCESS(
 
-        ) :string {
-            return sprintc("✅ %s", "green");
-        }
+    ) :string {
+        return sprintc("✅ %s", "green");
+    }
+
+    /**
+     * Message for displaying an yellow.
+     *
+     * @return string Formatted error message.
+     */
+    public static function WARNING(
+
+    ) :string {
+        return sprintc("🚧 %s", "yellow");
+    }
 
     /**
      * Message for displaying an error.
@@ -89,7 +100,7 @@ final class Messages
     public static function ERROR(
 
     ) :string {
-        return sprintc("🚨 Error: %s", "yellow");
+        return sprintc("🚨 Error: %s", "red");
     }
 
     /**

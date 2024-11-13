@@ -77,6 +77,10 @@ trait PageGenerator
             "-v" => null,
         ], $params);
 
+        $instance = new self();
+
+        $instance->_loadEnv(true);
+
         $controllersPath = self::getRootPath() . (getenv('APP_CONTROLLERS') ?: "");
 
         if ($params["-v"] === "") echo $controllersPath;
@@ -91,6 +95,10 @@ trait PageGenerator
             "-v" => null,
         ], $params);
 
+        $instance = new self();
+
+        $instance->_loadEnv(true);
+
         $viewsPath = self::getRootPath() . (getenv('APP_VIEWS') ?: "");
 
         if ($params["-v"] === "") echo $viewsPath;
@@ -104,6 +112,10 @@ trait PageGenerator
         $params = Helpers::defaultParams([
             "-v" => null,
         ], $params);
+
+        $instance = new self();
+
+        $instance->_loadEnv(true);
 
         $thisRootPath = dirname(dirname(__DIR__));
 

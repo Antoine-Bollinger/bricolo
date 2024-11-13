@@ -11,6 +11,7 @@
 namespace Abollinger\Bricolo\Abstract;
 
 use \Abollinger\Helpers;
+use \Abollinger\Bricolo\Data\Messages;
 use \Abollinger\Bricolo\Data\Constants;
 
 /**
@@ -22,6 +23,22 @@ use \Abollinger\Bricolo\Data\Constants;
  */
 abstract class Bricolo
 {
+    protected function _loadEnv(
+        $noError = false
+    ) {
+        try {
+            $path = dirname(__DIR__, 5);
+            $dotenv = \Dotenv\Dotenv::createImmutable($path);
+            $dotenv->load();
+        } catch(\Exception $e) {
+            if ($noError) {
+                return sprintf(Messages::WARNING(), $e->getMessage()) . "\n";
+            } else {
+                throw new \Exception($e->getMessage());
+            }
+        }
+    }
+
     /**
      * Check the existence of the specified database.
      *

@@ -27,18 +27,6 @@ final class Bricolo extends Abstract\Bricolo
     use Trait\HttpServer;
     use Trait\PageGenerator;
 
-    public function __construct(
-
-    ) {
-        try {
-            $path = dirname(__DIR__, 4);
-            $dotenv = \Dotenv\Dotenv::createImmutable($path);
-            $dotenv->load();
-        } catch(\Exception $e) {
-            echo sprintf(Messages::ERROR(), $e->getMessage());
-        }
-    }
-
     /**
      * Display help information.
      */

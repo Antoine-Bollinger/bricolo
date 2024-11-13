@@ -28,11 +28,10 @@ trait DbManager
 
     ) :void {
         try {
-            if (empty($_ENV)) {
-                throw new \Exception("No .env found, exit witout");
-            }
-
             $instance = new self();
+            
+            $instance->_loadEnv();
+
             $result = $instance->_loading([
                 "phrase" => "🔍️ \e[32mChecking if database ".$_ENV["D_HOST"]." exists",
                 "position" => 1,
