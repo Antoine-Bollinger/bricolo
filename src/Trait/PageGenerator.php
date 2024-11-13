@@ -91,11 +91,11 @@ trait PageGenerator
             "-v" => null,
         ], $params);
 
-        $controllersPath = self::getRootPath() . (getenv('APP_VIEWS') ?: "");
+        $viewsPath = self::getRootPath() . (getenv('APP_VIEWS') ?: "");
 
-        if ($params["-v"] === "") echo $controllersPath;
+        if ($params["-v"] === "") echo $viewsPath;
 
-        return $controllersPath;
+        return $viewsPath;
     }
 
     public static function getRootPath(

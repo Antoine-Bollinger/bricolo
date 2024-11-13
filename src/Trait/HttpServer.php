@@ -77,7 +77,7 @@ trait HttpServer
 
             shell_exec("php -S " . self::$host . ":" . self::$port . sprintf(self::$directory ? " -t %s/" : "", self::$directory));
         } catch(\Exception $e) {
-            echo sprintf(Messages::ERROR(),$e->getMessage());
+            echo sprintf(Messages::ERROR(), $e->getMessage());
         }
     }
 }

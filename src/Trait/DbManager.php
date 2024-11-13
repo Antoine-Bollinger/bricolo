@@ -28,13 +28,10 @@ trait DbManager
 
     ) :void {
         try {
-            try {
-                $path = dirname(__DIR__, 5);
-                $dotenv = \Dotenv\Dotenv::createImmutable($path);
-                $dotenv->load();
-            } catch(\Exception $e) {
-                throw new \Exception($e->getMessage());
+            if (empty($_ENV)) {
+                throw new \Exception("No .env found, exit witout");
             }
+
             $instance = new self();
             $result = $instance->_loading([
                 "phrase" => "🔍️ \e[32mChecking if database ".$_ENV["D_HOST"]." exists",
@@ -54,7 +51,7 @@ trait DbManager
                 echo "\n✅ \e[32mDatabase already exists.\n📌 Next step is to run 'composer serve' and see the magic happen!\n\e[39m";
             }
         } catch(\Exception $e) {
-            echo sprintf(Messages::ERROR(),$e->getMessage());
+            echo sprintf(Messages::ERROR(), $e->getMessage());
         }
     }
 }

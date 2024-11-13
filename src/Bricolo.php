@@ -11,6 +11,7 @@
 namespace Abollinger\Bricolo;
 
 use \Abollinger\Helpers;
+use \Abollinger\Bricolo\Data\Messages;
 
 /**
  * Class Bricolo
@@ -25,6 +26,18 @@ final class Bricolo extends Abstract\Bricolo
     use Trait\DbManager;
     use Trait\HttpServer;
     use Trait\PageGenerator;
+
+    public function __construct(
+
+    ) {
+        try {
+            $path = dirname(__DIR__, 4);
+            $dotenv = \Dotenv\Dotenv::createImmutable($path);
+            $dotenv->load();
+        } catch(\Exception $e) {
+            echo sprintf(Messages::ERROR(), $e->getMessage());
+        }
+    }
 
     /**
      * Display help information.
