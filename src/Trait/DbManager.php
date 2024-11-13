@@ -34,7 +34,7 @@ trait DbManager
             
             $instance->_loadEnv();
 
-            self::getDumpSQLFile();
+        $dumpSQLFile = self::getDumpSQLFile();
 
             $result = $instance->_loading([
                 "phrase" => "🔍️ \e[32mChecking if database ".$_ENV["D_HOST"]." exists",
@@ -56,7 +56,7 @@ trait DbManager
 
             $instance->_loading([
                 "spinner" => ['-', '\\', '|', '/'],
-                "phrase" => "🚧 \e[33mNow populating the Database with file " . $_ENV["APP_DUMP_SQL"],
+                "phrase" => "🚧 \e[33mNow populating the Database with file " . $dumpSQLFile,
                 "position" => 1,
                 "function" => "_populateDatabase" 
             ]);
@@ -86,5 +86,7 @@ trait DbManager
         }
 
         if ($params["-v"] === "") echo $dumpSQLFile;
+
+        return $dumpSQLFile;
     }
 }
