@@ -73,7 +73,7 @@ trait PageGenerator
                 );
 
                 $fileName = $value["path"] . "/" . $formattedName . $key . "." . $value["extension"];
-                echo sprintf(Messages::SUCCES(), $key . " has been created at " . $fileName . ".\n");
+                echo sprintf(Messages::SUCCESS(), $key . " has been created at " . $fileName . ".\n");
                 file_put_contents($fileName, $fileContent);
             }
         } catch(\Exception $e) {
