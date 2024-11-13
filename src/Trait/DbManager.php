@@ -34,10 +34,10 @@ trait DbManager
             
             $instance->_loadEnv();
 
-        $dumpSQLFile = self::getDumpSQLFile();
+            $dumpSQLFile = self::getDumpSQLFile();
 
             $result = $instance->_loading([
-                "phrase" => "🔍️ \e[32mChecking if database ".$_ENV["D_HOST"]." exists",
+                "phrase" => "🔍️ \e[32mChecking if database " . $_ENV["D_NAME"] . " exists",
                 "position" => 1,
                 "function" => "_checkDatabase"
             ]);
