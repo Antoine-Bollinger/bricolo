@@ -163,7 +163,7 @@ APP_DUMP_SQL=custom_migration.sql
 
 ### Page Creation
 
-The `PageGenerator` trait in Bricolo provides a straightforward way to generate a new controller and view for a page. This functionality is accessed from the command line and can quickly create files based on your predefined templates.
+Bricolo provides a straightforward way to generate a new controller and view for a page. This functionality is accessed from the command line and can quickly create files based on your predefined templates.
 
 #### Using `createPage` from the Command Line
 
@@ -187,9 +187,9 @@ php bricolo createPage name="PageName" route="/page-route"
 
 **File Locations**
 
-- **Controllers**: By default, controllers are created in the directory defined by the `APP_CONTROLLERS` variable defined in `.env`. If `APP_CONTROLLERS` is not defined, Bricolo will use the root of the package.
+- **Controllers**: By default, controllers are created in the directory defined by the `APP_CONTROLLERS` variable defined in `.env`. If `APP_CONTROLLERS` is not defined, Bricolo will use the root of the project.
 
-- **Views**: Views are created in the directory specified by the `APP_VIEWS` variable defined in `.env`. If `APP_VIEWS` is not defined, Bricolo will use the root of the package.
+- **Views**: Views are created in the directory specified by the `APP_VIEWS` variable defined in `.env`. If `APP_VIEWS` is not defined, Bricolo will use the root of the project.
 
 **Error Handling**
 
@@ -217,8 +217,6 @@ php bricolo migrate                                  # Run database migration to
 php bricolo createPage name="Page" route="/page"     # Create a new Controller named PageController and a twig view name PageView.twig 
 php bricolo serve                                    # Start a local server on the default or available port
 ```
-
-If the migration succeeds, you’ll see a message confirming that the database and tables were created.
 
 
 ## Contributing
