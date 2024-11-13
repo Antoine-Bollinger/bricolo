@@ -70,6 +70,16 @@ final class Messages
         return var_dump($env);
     }
 
+    /**
+     * Message for displaying an error.
+     *
+     * @return string Formatted error message.
+     */
+    public static function SUCCESS(
+
+        ) :string {
+            return sprintc("✅ %s", "green");
+        }
 
     /**
      * Message for displaying an error.

@@ -141,4 +141,12 @@ abstract class Bricolo
         $response = trim(fgets(STDIN));
         return $response ?? "";
     }
+
+    protected static function _getRootPath(
+
+    ) {
+        $vendorPath = __DIR__ . "/../../../../../vendor";
+
+        return is_dir($vendorPath) ? dirname($vendorPath) : dirname(dirname(__DIR__));
+    }
 }

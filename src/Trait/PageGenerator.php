@@ -41,12 +41,12 @@ trait PageGenerator
     
             $contents = [
                 "Controller" => [
-                    "path" => getenv('APP_CONTROLLERS') ?: dirname(dirname(__DIR__)),
+                    "path" => self::_getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
                     "extension" => "php",
                     "content" => file_get_contents(Constants::controllerFile)
                 ],
                 "View" => [
-                    "path" => getenv('APP_VIEWS') ?: dirname(dirname(__DIR__)),
+                    "path" => self::_getRootPath() . (getenv('APP_CONTROLLERS') ?: ""),
                     "extension" => "twig",
                     "content" => file_get_contents(Constants::viewFile)
                 ]
@@ -59,7 +59,8 @@ trait PageGenerator
                     $value["content"]
                 );
 
-                $fileName = $value["path"] . "/" . $formattedName . $key . "." . $value["extension"];     
+                $fileName = $value["path"] . "/" . $formattedName . $key . "." . $value["extension"];
+                echo $fileName . "\n";
                 file_put_contents($fileName, $fileContent);
             }
             
