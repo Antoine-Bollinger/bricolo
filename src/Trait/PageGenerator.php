@@ -68,5 +68,21 @@ trait PageGenerator
         } catch(\Exception $e) {
             echo sprintf(Messages::ERROR(), $e->getMessage());
         }
-    } 
+    }
+
+    public static function getRootPath(
+        $params = []
+    ) {
+        $params = Helpers::defaultParams([
+            "-v" => null,
+        ], $params);
+
+        $vendorPath = __DIR__ . "/../../../../../vendor";
+
+        $path = is_dir($vendorPath) ? dirname($vendorPath) : dirname(dirname(__DIR__));
+
+        if ($params["-v"] === "") echo $path;
+
+        return $path;
+    }
 }
