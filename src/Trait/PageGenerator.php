@@ -81,7 +81,7 @@ trait PageGenerator
 
         $instance->_loadEnv(true);
 
-        $controllersPath = self::getRootPath() . (getenv('APP_CONTROLLERS') ?: "");
+        $controllersPath = self::getRootPath() . ($_ENV["APP_CONTROLLERS"] ?? "");
 
         if ($params["-v"] === "") echo $controllersPath;
 
@@ -99,7 +99,7 @@ trait PageGenerator
 
         $instance->_loadEnv(true);
 
-        $viewsPath = self::getRootPath() . (getenv('APP_VIEWS') ?: "");
+        $viewsPath = self::getRootPath() . ($_ENV["APP_VIEWS"] ?? "");
 
         if ($params["-v"] === "") echo $viewsPath;
 
