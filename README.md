@@ -187,9 +187,9 @@ php bricolo createPage name="PageName" route="/page-route"
 
 **File Locations**
 
-- **Controllers**: By default, controllers are created in the directory defined by the `APP_CONTROLLERS` constant. If `APP_CONTROLLERS` is not defined, Bricolo will use the `/Controllers` directory within the package root.
+- **Controllers**: By default, controllers are created in the directory defined by the `APP_CONTROLLERS` variable defined in `.env`. If `APP_CONTROLLERS` is not defined, Bricolo will use the root of the package.
 
-- **Views**: Views are created in the directory specified by the `APP_VIEWS` constant. If `APP_VIEWS` is not defined, Bricolo will use the `/Views` directory within the package root.
+- **Views**: Views are created in the directory specified by the `APP_VIEWS` variable defined in `.env`. If `APP_VIEWS` is not defined, Bricolo will use the root of the package.
 
 **Error Handling**
 

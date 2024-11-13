@@ -41,12 +41,12 @@ trait PageGenerator
     
             $contents = [
                 "Controller" => [
-                    "path" => defined('APP_CONTROLLERS') ? APP_CONTROLLERS : dirname(dirname(__DIR__)) . '/Controllers',
+                    "path" => getenv('APP_CONTROLLERS') ?: dirname(dirname(__DIR__)),
                     "extension" => "php",
                     "content" => file_get_contents(Constants::controllerFile)
                 ],
                 "View" => [
-                    "path" => defined('APP_VIEWS') ? APP_VIEWS : dirname(dirname(__DIR__)) . '/Views',
+                    "path" => getenv('APP_VIEWS') ?: dirname(dirname(__DIR__)),
                     "extension" => "twig",
                     "content" => file_get_contents(Constants::viewFile)
                 ]
