@@ -88,14 +88,12 @@ abstract class Bricolo
     }
     
     /**
-     * Create the specified database and populate it with data.
-     *
-     * @param string $file File containing the Sql command for database creation. Default is dump_sql.txt in Data folder
+     * Create the specified database.
      * 
      * @return bool Returns true on successful database creation and population; otherwise, false.
      */
     protected function _createDatabase(
-        $file = Constants::dumpSqlFile
+
     ) :bool {
         $tmp = new \PDO("mysql:host=".$_ENV["D_HOST"].";charset=utf8mb4",$_ENV["D_USER"],$_ENV["D_PWD"]);
         $create = $tmp->prepare("
@@ -103,7 +101,19 @@ abstract class Bricolo
         ");
         $create->execute();
         $create->closeCursor();
-        
+        return true;
+    }
+
+    /**
+     * Populate the database with data.
+     *
+     * @param string $file File containing the Sql command for database creation. Default is dump_sql.txt in Data folder
+     * 
+     * @return bool Returns true on successful database creation and population; otherwise, false.
+     */
+    protected function _populateDatabase(
+        $file = Constants::dumpSqlFile
+    ) {
         $queries = file_get_contents($_ENV["APP_DUMP_SQL"] ?? $file);
 
         $userId = $_ENV["FIRST_USER_ID"];

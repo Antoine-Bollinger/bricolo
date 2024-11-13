@@ -41,6 +41,7 @@ trait DbManager
                 "position" => 1,
                 "function" => "_checkDatabase"
             ]);
+
             if (!$result) {
                 $instance->_loading([
                     "spinner" => ['-', '\\', '|', '/'],
@@ -48,11 +49,19 @@ trait DbManager
                     "position" => 1,
                     "function" => "_createDatabase"
                 ]);
-                echo "\n";
-                echo "\n✅ \e[32mDatabase has been successfully created and populated.\n📌 Next step is to run 'composer serve' and see the magic happen!\n\e[39m";
+                echo "\n✅ \e[32mDatabase has been successfully created.\n\e[39m";
             } else {
-                echo "\n✅ \e[32mDatabase already exists.\n📌 Next step is to run 'composer serve' and see the magic happen!\n\e[39m";
+                echo "\n✅ \e[32mDatabase already exists.\n\e[39m";
             }
+
+            $instance->_loading([
+                "spinner" => ['-', '\\', '|', '/'],
+                "phrase" => "🚧 \e[33mNow populating the Database with file " . $_ENV["APP_DUMP_SQL"],
+                "position" => 1,
+                "function" => "_populateDatabase" 
+            ]);
+
+            echo "\n✅ \e[32mDatabase has been successfully populated.\n\e[39m";
         } catch(\Exception $e) {
             echo sprintf(Messages::ERROR(), $e->getMessage());
         }
