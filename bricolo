@@ -13,6 +13,10 @@ try {
     array_shift($argv);
     $classInstance = new ReflectionClass("\\Abollinger\\Bricolo\\Bricolo");
     $requiredMethod = (count($argv) < 1) ? 'log' : array_shift($argv);
+    if ($requiredMethod === "-v") {
+        $requiredMethod = "log";
+        $argv[] = "m=version";
+    }
     if ($classInstance->hasMethod($requiredMethod)) {
         $method = $classInstance->getMethod($requiredMethod);
         if ($method->isPublic()) {        

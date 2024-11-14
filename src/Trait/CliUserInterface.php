@@ -76,15 +76,21 @@ trait CliUserInterface
         }
     }
 
+    /**
+     * Prompts the user to confirm if they want to run `npm install` and runs it if confirmed.
+     *
+     * This method asks the user for input, and if the response is "yes" or "y", it proceeds
+     * to run the `npm install` command by calling a loading spinner and an internal method `_npmInstall`.
+     * Otherwise, it skips the installation.
+     *
+     * @return void
+     */
     public function npmInstall(
 
     ) {
         echo "Would you like to run npm install? [\e[33m[no]\e[0m, Yes]: ";
 
         $response = strtolower(trim(fgets(STDIN)));
-
-        // $response = readline("Would you like to run npm install? [\e[33m[no]\e[0m, Yes]: ");
-        // $response = strtolower(trim($response));
 
         if ($response === 'yes' || $response === 'y') {
             $instance = new self();

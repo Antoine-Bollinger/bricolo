@@ -104,6 +104,19 @@ final class Messages
     }
 
     /**
+     * Message for displaying the package version.
+     *
+     * @return string Formatted version message.
+     */
+    public static function VERSION(
+
+    ) :string {
+        $composer = file_get_contents(dirname(__DIR__, 2) . "/composer.json");
+        $composerJson = json_decode($composer, true);
+        return "\e[32mBricolo\e[39m version \e[33m" . ($composerJson["version"] ?? "1.0.0") . "\e[39m";
+    }
+
+    /**
      * Help message providing information about available commands and usage.
      *
      * @return string Help message.
