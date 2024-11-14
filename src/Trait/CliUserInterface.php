@@ -11,6 +11,7 @@
 namespace Abollinger\Bricolo\Trait;
 
 use \Abollinger\Helpers;
+use \Abollinger\Bricolo\Data\Constants;
 
 /**
  * Trait CliUserInterface
@@ -56,5 +57,11 @@ trait CliUserInterface
         else {
             throw new \Exception("There is no log with the name `" . $params["m"] . "`.");
         }
+    }
+
+    public function createLauncher(
+
+    ) {
+        file_put_contents(self::getRootPath() . "/bricolo", file_get_contents(Constants::launcherFile));      
     }
 }

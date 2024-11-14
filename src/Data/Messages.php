@@ -120,9 +120,11 @@ final class Messages
 
 \e[33mAvailable commands:\e[39m
     \e[32mhelp\e[39m        Display this same message 👽️
-    \e[32mmigrate\e[39m     Create a database name partez (if not exists) and add a table user with one first use. Config in .env.
+    \e[32mmigrate\e[39m     Create a database (if not exists) and populate with dump_sql config. Config in .env.
     \e[32mserve\e[39m       Starts a build-in serve on localhost:1234.
     \e[32m\e[39m            💡 You can customize port (p=8000), host (h=0.0.0.0) and directory (d=public).
+    \e[32mcreatePage\e[39m  Create a new page, i.e. a Controller and a View (twig) files in Controllers and Views folders.
+    \e[32m\e[39m            🚨 Mandatory parametes are name (name=pageName) and route (route=/pageRoute).
     \e[32mupdate\e[39m      Update this package using `composer update abollinger/bricolo`. 
 ";
     }

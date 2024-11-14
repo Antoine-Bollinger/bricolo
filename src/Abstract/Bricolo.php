@@ -115,7 +115,7 @@ abstract class Bricolo
     /**
      * Populate the database with data.
      *
-     * @param string $file File containing the Sql command for database creation. Default is dump_sql.txt in Data folder
+     * @param string $file File containing the Sql command for database creation. Default is populate.sql in Data/templates folder
      * 
      * @return bool Returns true on successful database creation and population; otherwise, false.
      */

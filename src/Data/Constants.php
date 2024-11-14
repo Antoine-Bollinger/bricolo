@@ -30,24 +30,24 @@ abstract class Constants
     const port = 1234;
 
     /**
-     * Text file to store the port
-     */
-    const portFile = __DIR__ . "/port.txt";
-
-    /**
      * Text file with dump sql for base migration
      */
-    const dumpSqlFile = __DIR__ . "/dump_sql.txt";
+    const dumpSqlFile = __DIR__ . "/templates/populate.sql";
 
     /**
      * Text file with the controller content
      */
-    const controllerFile = __DIR__ . "/controller.txt";
+    const controllerFile = __DIR__ . "/templates/controller.php";
 
     /**
      * Text file with the Twig view content
      */
-    const viewFile = __DIR__ . "/view.txt";
+    const viewFile = __DIR__ . "/templates/view.twig";
+
+    /**
+     * Text file containing the php code for launcher (vendor/bin/bricolo => bricolo)
+     */
+    const launcherFile = __DIR__ . "/templates/launcher.php";
 
     /**
      * Directory constant.

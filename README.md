@@ -58,6 +58,12 @@ passthru(
 exit($exitCode);
 ```
 
+You can use this command to automatically create this file:
+
+```bash
+php vendor/bin/bricolo createLauncher
+```
+
 This will allow you to type `php bricolo functionName` instead of `vendor/bin/bricolo`. For the rest of this documentation, we'll use the `php bricolo functionName` format.
 
 
@@ -127,10 +133,10 @@ D_PWD=your_password
 
 #### Step 2: Customize the SQL Dump File (Optional)
 
-Bricolo uses a default SQL dump file located at `src/Data/dump_sql.txt` to create tables and insert data. By default, this file includes SQL commands to create a basic users table:
+Bricolo uses a default SQL dump file located at `src/Data/templates/populate.sql` to create tables and insert data. By default, this file includes SQL commands to create a basic users table:
 
 ```sql
--- src/Data/dump_sql.txt
+-- src/Data/templates/populate.sql
 CREATE TABLE `users` (
     `userId` int(3) NOT NULL,
     `password` varchar(255) NOT NULL,
@@ -149,7 +155,7 @@ If you’d like to use a different SQL dump file, specify its path in the `.env`
 APP_DUMP_SQL=custom_dump.sql
 ```
 
-When `APP_DUMP_SQL` is set and the specified file exists, Bricolo will use it instead of `src/Data/dump_sql.txt`. This feature gives you the flexibility to customize database setup while keeping a default structure available.
+When `APP_DUMP_SQL` is set and the specified file exists, Bricolo will use it instead of `src/Data/templates/populate.sql`. This feature gives you the flexibility to customize database setup while keeping a default structure available.
 
 **Note: Ensure that the path specified in `APP_DUMP_SQL` is relative to the root of the Partez framework or provide an absolute path.**
 
@@ -165,9 +171,9 @@ php bricolo migrate
 
 When you run the migrate command, Bricolo will follow these steps:
 
-1. **Verify Database Connection**: Bricolo will check if it can connect to the specified database server using the credentials from .env. If the database specified in DB_NAME does not already exist, it will be created.
+1. **Verify Database Connection**: Bricolo will check if it can connect to the specified database server using the credentials from `.env`. If the database specified in `DB_NAME` does not already exist, it will be created.
 
-2. **Locate SQL Dump File**: Bricolo will first check for a custom SQL dump file path in APP_DUMP_SQL. If this variable is set and the file exists, it will be used for the migration. Otherwise, Bricolo will fall back to the default src/Data/dump_sql.txt.
+2. **Locate SQL Dump File**: Bricolo will first check for a custom SQL dump file path in `APP_DUMP_SQL`. If this variable is set and the file exists, it will be used for the migration. Otherwise, Bricolo will fall back to the default `src/Data/templates/populate.sql`.
 
 3. **Execute SQL Commands**: Bricolo will read the SQL commands from the selected dump file and execute them in sequence to set up tables and insert any predefined data.
 
