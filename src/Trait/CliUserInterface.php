@@ -86,12 +86,13 @@ trait CliUserInterface
             $instance = new self();
 
             $npmInstall = $instance->_loading([
+                "spinner" => ['-', '\\', '|', '/'],
                 "phrase" => "🚧 \e[32mRunning npm install",
                 "position" => 1,
                 "function" => "_npmInstall"
             ]);
 
-            echo $npmInstall;
+            echo "\r\n" . $npmInstall;
         } else {
             echo "Skipping npm install.\n";
         }

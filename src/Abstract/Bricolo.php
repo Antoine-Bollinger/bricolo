@@ -207,18 +207,23 @@ abstract class Bricolo
         return $response ?? "";
     }
 
+    /**
+     * Perform the npm install command.
+     *
+     * @return string Return the result of the command.
+     */
     protected function _npmInstall(
 
     ) {
         try {
             passthru("npm install", $exitCode);
             if ($exitCode === 0) {
-                echo sprintf(Messages::SUCCESS(), "npm install completed successfully");
+                return sprintf(Messages::SUCCESS(), "npm install completed successfully");
             } else {
                 throw new \Exception("npm install failed. Exit code: $exitCode");
             }
         } catch(\Exception $e) {
-            echo sprintf(Messages::ERROR(), $e->getMessage());
+            return sprintf(Messages::ERROR(), $e->getMessage());
         }
     }
 }
