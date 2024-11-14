@@ -35,6 +35,31 @@ Install the last version via [Composer](https://getcomposer.org/):
 composer require abollinger/bricolo
 ```
 
+Then you can call the functions by typing:
+
+```bash 
+php vendor/bin/bricolo functionName
+```
+
+**Note**
+
+We strongly recommand to add a file named `bricolo` (without extension) at the route of your project, with the following content:
+
+```php
+#!/usr/bin/env php
+<?php
+passthru(
+    "php vendor/bin/bricolo " . implode(' ', array_map(
+        'escapeshellarg', 
+        array_slice($_SERVER['argv'], 1)
+    )),
+    $exitCode
+);
+exit($exitCode);
+```
+
+This will allow you to type `php bricolo functionName` instead of `vendor/bin/bricolo`. For the rest of this documentation, we'll use the `php bricolo functionName` format.
+
 
 ## Usage
 
@@ -48,8 +73,6 @@ To see a list of available commands and get a quick overview of each, you can ru
 ```bash
 php bricolo help
 ```
-
-This will display descriptions for each Bricolo command, including `serve` and `migrate`, along with usage examples to help you get started quickly.
 
 
 ### Launching a Local Server

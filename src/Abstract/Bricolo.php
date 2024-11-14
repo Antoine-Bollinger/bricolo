@@ -53,6 +53,14 @@ abstract class Bricolo
         return $path;
     }
 
+    /**
+     * Load .env variables 
+     * 
+     * @param bool $noError Control if the function throw an Exception or a simple string message when error is detected
+     * 
+     * @return string Error message if error and @param $noError is true
+     * @return Exception if error and @param $noError is false
+     */
     protected function _loadEnv(
         $noError = false
     ) {
