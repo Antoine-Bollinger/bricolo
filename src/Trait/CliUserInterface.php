@@ -12,6 +12,7 @@ namespace Abollinger\Bricolo\Trait;
 
 use \Abollinger\Helpers;
 use \Abollinger\Bricolo\Data\Constants;
+use \Abollinger\Bricolo\Data\Messages;
 
 /**
  * Trait CliUserInterface
@@ -59,9 +60,40 @@ trait CliUserInterface
         }
     }
 
+    /**
+     * Create a bricolo file at the root of the project to allow user to use "php bricolo" instead of "php vendor/bin/bricolo" in CLI.
+     *
+     * @throws \Exception
+     */
     public function createLauncher(
 
     ) {
-        file_put_contents(self::getRootPath() . "/bricolo", file_get_contents(Constants::launcherFile));      
+        try {
+            file_put_contents(self::getRootPath() . "/bricolo", file_get_contents(Constants::launcherFile));
+            echo sprintf(Messages::SUCCESS(), "`bricolo` file successfully created at the root of the project.");
+        } catch(\Exception $e) {
+            echo sprintf(Messages::ERROR(), $e->getMessage());
+        }
+    }
+
+    public function npmInstall(
+
+    ) {
+        $response = readline("Would you like to run npm install? [\e[33m[no]\e[0m, Yes]: ");
+        $response = strtolower(trim($response));
+
+        if ($response === 'yes' || $response === 'y') {
+            $instance = new self();
+
+            $npmInstall = $instance->_loading([
+                "phrase" => "🚧 \e[32mRunning npm install",
+                "position" => 1,
+                "function" => "_npmInstall"
+            ]);
+
+            echo $npmInstall;
+        } else {
+            echo "Skipping npm install.\n";
+        }
     }
 }

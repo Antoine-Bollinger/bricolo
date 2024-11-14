@@ -10,12 +10,14 @@
 
 namespace Abollinger\Bricolo\Trait;
 
+use \Abollinger\Helpers;
 use \Abollinger\Bricolo\Data\Constants;
 use \Abollinger\Bricolo\Data\Messages;
-use \Abollinger\Helpers;
 
 /**
  * Trait HttpServer
+ * 
+ * This trait contains method to manage Server
  *
  * @package Abollinger\Bricolo
  */

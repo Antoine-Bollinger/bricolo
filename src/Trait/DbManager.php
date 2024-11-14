@@ -10,9 +10,9 @@
 
 namespace Abollinger\Bricolo\Trait;
 
+use \Abollinger\Helpers;
 use \Abollinger\Bricolo\Data\Constants;
 use \Abollinger\Bricolo\Data\Messages;
-use \Abollinger\Helpers;
 
 /**
  * Trait DbManager

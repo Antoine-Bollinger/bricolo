@@ -206,4 +206,19 @@ abstract class Bricolo
         $response = trim(fgets(STDIN));
         return $response ?? "";
     }
+
+    protected function _npmInstall(
+
+    ) {
+        try {
+            passthru("npm install", $exitCode);
+            if ($exitCode === 0) {
+                echo sprintf(Messages::SUCCESS(), "npm install completed successfully");
+            } else {
+                throw new \Exception("npm install failed. Exit code: $exitCode");
+            }
+        } catch(\Exception $e) {
+            echo sprintf(Messages::ERROR(), $e->getMessage());
+        }
+    }
 }

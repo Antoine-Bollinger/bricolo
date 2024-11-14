@@ -10,12 +10,14 @@
 
 namespace Abollinger\Bricolo\Trait;
 
+use \Abollinger\Helpers;
 use \Abollinger\Bricolo\Data\Constants;
 use \Abollinger\Bricolo\Data\Messages;
-use \Abollinger\Helpers;
 
 /**
  * Trait PageGenerator
+ * 
+ * This trait contains methods to manage the page creation for a web app.
  *
  * @package Abollinger\Bricolo
  */
