@@ -70,7 +70,7 @@ trait CliUserInterface
     ) {
         try {
             file_put_contents(self::getRootPath() . "/bricolo", file_get_contents(Constants::launcherFile));
-            echo sprintf(Messages::SUCCESS(), "`bricolo` file successfully created at the root of the project.");
+            echo sprintf(Messages::SUCCESS(), "`bricolo` file successfully created at the root of the project.\n");
         } catch(\Exception $e) {
             echo sprintf(Messages::ERROR(), $e->getMessage());
         }
@@ -79,8 +79,12 @@ trait CliUserInterface
     public function npmInstall(
 
     ) {
-        $response = readline("Would you like to run npm install? [\e[33m[no]\e[0m, Yes]: ");
-        $response = strtolower(trim($response));
+        echo "Would you like to run npm install? [\e[33m[no]\e[0m, Yes]: ";
+
+        $response = strtolower(trim(fgets(STDIN)));
+
+        // $response = readline("Would you like to run npm install? [\e[33m[no]\e[0m, Yes]: ");
+        // $response = strtolower(trim($response));
 
         if ($response === 'yes' || $response === 'y') {
             $instance = new self();
@@ -92,7 +96,9 @@ trait CliUserInterface
                 "function" => "_npmInstall"
             ]);
 
-            echo "\r\n" . $npmInstall;
+            echo "\n";
+            
+            echo $npmInstall;
         } else {
             echo "Skipping npm install.\n";
         }
