@@ -137,6 +137,7 @@ Bricolo uses a default SQL dump file located at `src/Data/templates/populate.sql
 
 ```sql
 -- src/Data/templates/populate.sql
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
     `userId` int(3) NOT NULL,
     `password` varchar(255) NOT NULL,
@@ -144,8 +145,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `users` (`userId`, `password`) VALUES
-(:userId, :password);
+('999', '$2y$12$pSe7DWznXBHgvAZ9AtvJl.OxFhmX9694wFTmEJL5kKFsrmsb5uzzu');
 ```
+
+The password used here a `1234` ecnrypt with the password_hash() function, following this model:
+
+```php 
+$encryptedPassword = password_hash($password, PASSWORD_BCRYPT, ["cost" => $_ENV["SALT"]]);
+```
+
+We strongly recommend to customize this method in your own app.
 
 **Providing a Custom SQL Dump File**
 
