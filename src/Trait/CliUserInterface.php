@@ -88,7 +88,7 @@ trait CliUserInterface
     public function npmInstall(
 
     ) {
-        echo "Would you like to run npm install? [\e[33m[no]\e[0m, Yes]: ";
+        echo "Would you like to run npm install? [\e[33m[no]\e[0m, yes]: ";
 
         $response = strtolower(trim(fgets(STDIN)));
 

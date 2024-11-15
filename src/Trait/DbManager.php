@@ -56,7 +56,7 @@ trait DbManager
 
             $instance->_loading([
                 "spinner" => ['-', '\\', '|', '/'],
-                "phrase" => "🚧 \e[33mNow populating the Database with file " . $dumpSQLFile,
+                "phrase" => "🚧 \e[33mNow populating the Database with file $dumpSQLFile ",
                 "position" => 1,
                 "function" => "_populateDatabase" 
             ]);

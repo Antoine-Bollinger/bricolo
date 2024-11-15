@@ -109,6 +109,7 @@ abstract class Bricolo
         ");
         $create->execute();
         $create->closeCursor();
+        $mp = null;
         return true;
     }
 
@@ -123,13 +124,9 @@ abstract class Bricolo
         $file = Constants::dumpSqlFile
     ) {
         $queries = file_get_contents($_ENV["APP_DUMP_SQL"] ?? $file);
-
-        $userId = $_ENV["FIRST_USER_ID"];
-        $password = password_hash($_ENV["FIRST_USER_PASSWORD"], PASSWORD_BCRYPT, ["cost" => $_ENV["SALT"]]);
-
         $tmp = new \PDO("mysql:host=".$_ENV["D_HOST"].";dbname=".$_ENV["D_NAME"].";charset=utf8mb4",$_ENV["D_USER"],$_ENV["D_PWD"]);
         $populate = $tmp->prepare($queries);
-        $populate->execute(["userId" => $userId, "password" => $password]);
+        $populate->execute();
         $populate->closeCursor();
         $tmp = null;
         return true;
