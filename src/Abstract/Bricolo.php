@@ -192,6 +192,13 @@ abstract class Bricolo
         return $return ?? false;
     }
 
+    /**
+     * Promp a question to the user and capture the response
+     * 
+     * @param array $params An array of parameters for the loading animation.
+     * 
+     * @return string The response of the user.
+     */
     protected function _input(
         $params = []
     ) :string {
@@ -199,7 +206,7 @@ abstract class Bricolo
             "q" => "How are you today? ",
         ], $params);
 
-        echo sprintc($params["q"] . "", "green"),
+        echo $params["q"];
         $response = trim(fgets(STDIN));
         return $response ?? "";
     }

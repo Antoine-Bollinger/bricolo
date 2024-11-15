@@ -88,9 +88,7 @@ trait CliUserInterface
     public function npmInstall(
 
     ) {
-        echo "Would you like to run npm install? [\e[33m[no]\e[0m, yes]: ";
-
-        $response = strtolower(trim(fgets(STDIN)));
+        $response = self::_input(["q" => "Would you like to run npm install? [\e[33m[no]\e[0m, yes]: "]);
 
         if ($response === 'yes' || $response === 'y') {
             $instance = new self();
