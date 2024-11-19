@@ -32,7 +32,7 @@ abstract class Constants
     /**
      * Text file with dump sql for base migration
      */
-    const dumpSqlFile = __DIR__ . "/templates/populate.sql";
+    const dumpSqlPath = __DIR__ . "/templates/populate.sql";
 
     /**
      * Text file with the controller content

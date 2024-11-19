@@ -33,6 +33,7 @@ trait DbManager
             $instance = new self();
             
             $instance->_loadEnv();
+            // $instance->_loadEnv(["path" => dirname(__DIR__, 2)]);
 
             $dumpSQLFile = self::getDumpSQLFile();
 
@@ -76,13 +77,13 @@ trait DbManager
 
         $instance = new self();
 
-        $instance->_loadEnv(true);
+        $instance->_loadEnv(["noError" => true]);
 
         if (isset($_ENV["APP_DUMP_SQL"])) {
             $dumpSQLFile = self::getRootPath() . $_ENV["APP_DUMP_SQL"];
             $_ENV["APP_DUMP_SQL"] = $dumpSQLFile;
         } else {
-            $dumpSQLFile = Constants::dumpSqlFile;
+            $dumpSQLFile = Constants::dumpSqlPath;
         }
 
         if ($params["-v"] === "") echo $dumpSQLFile;

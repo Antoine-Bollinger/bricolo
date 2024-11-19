@@ -62,14 +62,17 @@ abstract class Bricolo
      * @return Exception if error and @param $noError is false
      */
     protected function _loadEnv(
-        $noError = false
+        $params = []
     ) {
+        $params = Helpers::defaultParams([
+            "noError" => false,
+            "path" => null
+        ], $params);
         try {
-            $path = dirname(__DIR__, 5);
-            $dotenv = \Dotenv\Dotenv::createImmutable($path);
+            $dotenv = \Dotenv\Dotenv::createImmutable($params["path"] ?? dirname(__DIR__, 5));
             $dotenv->load();
         } catch(\Exception $e) {
-            if ($noError) {
+            if ($params["noError"]) {
                 return sprintf(Messages::WARNING(), $e->getMessage()) . "\n";
             } else {
                 throw new \Exception($e->getMessage());
@@ -121,13 +124,24 @@ abstract class Bricolo
      * @return bool Returns true on successful database creation and population; otherwise, false.
      */
     protected function _populateDatabase(
-        $file = Constants::dumpSqlFile
+        $path = Constants::dumpSqlPath
     ) {
-        $queries = file_get_contents($_ENV["APP_DUMP_SQL"] ?? $file);
+        if (is_dir($path)) {
+
+        } elseif (is_file($path)) {
+            $this->_executeQueryFromFile($path);
+        }
+    }
+
+    private function _executeQueryFromFile(
+        $file = null
+    ) {
+        if ($file === null) return false;
+        $queries = file_get_contents($file);
         $tmp = new \PDO("mysql:host=".$_ENV["D_HOST"].";dbname=".$_ENV["D_NAME"].";charset=utf8mb4",$_ENV["D_USER"],$_ENV["D_PWD"]);
-        $populate = $tmp->prepare($queries);
-        $populate->execute();
-        $populate->closeCursor();
+        $execute = $tmp->prepare($queries);
+        $execute->execute();
+        $execute->closeCursor();
         $tmp = null;
         return true;
     }

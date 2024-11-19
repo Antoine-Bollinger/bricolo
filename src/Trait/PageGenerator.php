@@ -103,7 +103,7 @@ trait PageGenerator
 
         $instance = new self();
 
-        $instance->_loadEnv(true);
+        $instance->_loadEnv(["noError" => true]);
 
         $controllersPath = self::getRootPath() . ($_ENV["APP_CONTROLLERS"] ?? "");
 
@@ -132,7 +132,7 @@ trait PageGenerator
 
         $instance = new self();
 
-        $instance->_loadEnv(true);
+        $instance->_loadEnv(["noError" => true]);
 
         $viewsPath = self::getRootPath() . ($_ENV["APP_VIEWS"] ?? "");
 
