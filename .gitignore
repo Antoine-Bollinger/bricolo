@@ -10,6 +10,8 @@ vendor
 composer.lock
 package-lock.json
 
+migrations
+
 # Editor directories and files
 .idea
 .vscode

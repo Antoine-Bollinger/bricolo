@@ -128,7 +128,13 @@ abstract class Bricolo
     ) :bool {
         $tmp = $_ENV["APP_DUMP_SQL"] ?? $path;
         if (is_dir($tmp)) {
-            return false;
+            $files = scandir($tmp);
+            $files = array_diff($files, [".", ".."]);
+            $return = false;
+            foreach($files as $file) {
+                $return = $this->_executeQueryFromFile($tmp . "/" . $file);
+            }
+            return $return;
         } elseif (is_file($tmp)) {
             return $this->_executeQueryFromFile($tmp);
         }

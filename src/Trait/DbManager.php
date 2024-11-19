@@ -27,13 +27,16 @@ trait DbManager
      * Perform migration tasks for the application.
      */
     public static function migrate(
-
+        $params = []
     ) :void {
+        $params = Helpers::defaultParams([
+            "--test" => null
+        ], $params);
+
         try {
             $instance = new self();
             
-            $instance->_loadEnv();
-            // $instance->_loadEnv(["path" => dirname(__DIR__, 2)]);
+            $instance->_loadEnv(["path" => ($params["--test"] === "" ? dirname(__DIR__, 2) : null)]);
 
             $dumpSQLFile = self::getDumpSQLFile();
 
