@@ -117,25 +117,32 @@ abstract class Bricolo
     }
 
     /**
-     * Populate the database with data.
+     * Populate the database with from a file or a directory containing files.
+     *
+     * @param string $file File or directory with files containing the Sql command for database creation. Default is populate.sql in Data/templates folder
+     * 
+     * @return bool Returns true on successful database creation and population; otherwise, false.
+     */
+    protected function _populateDatabase(
+        string $path = Constants::dumpSqlPath
+    ) :bool {
+        if (is_dir($path)) {
+            return false;
+        } elseif (is_file($path)) {
+            return $this->_executeQueryFromFile($path);
+        }
+    }
+
+    /**
+     * Execute SQL queries contained in a file.
      *
      * @param string $file File containing the Sql command for database creation. Default is populate.sql in Data/templates folder
      * 
      * @return bool Returns true on successful database creation and population; otherwise, false.
      */
-    protected function _populateDatabase(
-        $path = Constants::dumpSqlPath
-    ) {
-        if (is_dir($path)) {
-
-        } elseif (is_file($path)) {
-            $this->_executeQueryFromFile($path);
-        }
-    }
-
     private function _executeQueryFromFile(
-        $file = null
-    ) {
+        string|null $file = null
+    ) :bool {
         if ($file === null) return false;
         $queries = file_get_contents($file);
         $tmp = new \PDO("mysql:host=".$_ENV["D_HOST"].";dbname=".$_ENV["D_NAME"].";charset=utf8mb4",$_ENV["D_USER"],$_ENV["D_PWD"]);

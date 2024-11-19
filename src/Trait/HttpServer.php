@@ -68,7 +68,6 @@ trait HttpServer
                     "d" => self::$directory,
                 ]);
             } else {
-                // $instance->setPort(spl_object_id($instance), self::$port);
                 echo "✅ \e[32mPort " . self::$port . " is available.\e[39m";
                 echo "\n";
                 $instance->_loading([
