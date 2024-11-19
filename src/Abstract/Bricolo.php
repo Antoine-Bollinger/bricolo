@@ -126,10 +126,11 @@ abstract class Bricolo
     protected function _populateDatabase(
         string $path = Constants::dumpSqlPath
     ) :bool {
-        if (is_dir($path)) {
+        $tmp = $_ENV["APP_DUMP_SQL"] ?? $path;
+        if (is_dir($tmp)) {
             return false;
-        } elseif (is_file($path)) {
-            return $this->_executeQueryFromFile($path);
+        } elseif (is_file($tmp)) {
+            return $this->_executeQueryFromFile($tmp);
         }
     }
 
